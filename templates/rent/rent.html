@@ -1,0 +1,144 @@
+{%extends 'index/base.html'%}
+
+{%block title%}
+rent
+{%endblock%}
+
+{%block body%}
+<div class="tabs is-centered">
+    <ul>
+        <li class="is-active"><a href="">1.Add owner info</a></li>
+        <li><a href="">2.Add tractor info</a></li>
+        <li><a href="">3.Upload Image</a></li>
+    </ul>
+</div>
+<div class="container">
+    <div class="columns is-centered">
+        <div class="column is-two-thirds is-mobile-full">
+            <form id='form-1' method="POST">
+              {%csrf_token%}
+                <div class="notification is-light">
+                        <div class="field">
+                                <label class="label">Username</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input class="input" name="username" required_id="id_username" validate type="text" placeholder="e.g. Ram Haldwan">
+                                    <span class="icon is-small is-left">
+                                      <i class="fas fa-user"></i>
+                                    </span>
+                              </div>
+                              
+                            <div class="field ">
+                                <label class="label">Email</label>
+                                <div class="control has-icons-left has-icons-right">
+                                  <input class="input" name="email" required_id="id_number" validate type="email" placeholder="e.g. example@gmail.com">
+                                  <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                  </span>
+                                </div>
+                            </div>
+                            <div class="columns is-mobile">
+                                <div class="column">
+                                        <div class="field ">
+                                                <label class="label">Number</label>
+                                                <div class="control has-icons-left has-icons-right">
+                                                  <input class="input" type="text" name="number" required_id="id_number" placeholder="+91 ">
+                                                  <span class="icon is-small is-left">
+                                                    <i class="fas fa-phone"></i>
+                                                  </span>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label">Pincode</label>
+                                        <div class="control has-icons-left has-icons-right">
+                                            <input class="input" type="text" name="pincode" required_id="id_pincode" placeholder="401 105">
+                                            <span class="icon is-small is-left">
+                                              <i class="fas fa-map-pin"></i>
+                                            </span>
+                                        </div>
+                                </div></div>
+                            </div>
+                            
+                            <div class="columns is-mobile">
+                                <div class="column">
+                                        <div class="field">
+                                                <div class="control has-icons-left">
+                                                  <div class="select is-fullwidth">
+                                                    <select name="state" id="id_state">
+                                                      <option selected>State</option>
+                                                        <option value="Andaman Nicobar"  > Andaman Nicobar</option>
+                                                        <option value="Andhra Pradesh"  > Andhra Pradesh</option>
+                                                        <option value="Arunachal Pradesh"  > Arunachal Pradesh</option>
+                                                        <option value="Assam"  > Assam</option>
+                                                        <option value="Bihar"  > Bihar</option>
+                                                        <option value="Chhattisgarh"  > Chhattisgarh</option>
+                                                        <option value="Dadra and Nagar Haveli"  > Dadra and Nagar Haveli</option>
+                                                        <option value="Daman and Diu"  > Daman and Diu</option>
+                                                        <option value="Delhi"  > Delhi</option>
+                                                        <option value="Goa"  > Goa</option>
+                                                        <option value="Gujarat"  > Gujarat</option>
+                                                        <option value="Haryana"  > Haryana</option>
+                                                        <option value="Himachal Pradesh"  > Himachal Pradesh</option>
+                                                        <option value="Jammu Kashmir"  > Jammu Kashmir</option>
+                                                        <option value="Jharkhand"  > Jharkhand</option>
+                                                        <option value="Karnataka"  > Karnataka</option>
+                                                        <option value="Kerala"  > Kerala</option>
+                                                        <option value="Lakshadweep"  > Lakshadweep</option>
+                                                        <option value="Madhya Pradesh"  > Madhya Pradesh</option>
+                                                        <option value="Maharashtra"  > Maharashtra</option>
+                                                        <option value="Manipur"  > Manipur</option>
+                                                        <option value="Meghalaya"  > Meghalaya</option>
+                                                        <option value="Mizoram"  > Mizoram</option>
+                                                        <option value="Nagaland"  > Nagaland</option>
+                                                        <option value="Orissa"  > Orissa</option>
+                                                        <option value="Pondicherry"  > Pondicherry</option>
+                                                        <option value="Punjab"  > Punjab</option>
+                                                        <option value="Rajasthan"  > Rajasthan</option>
+                                                        <option value="Sikkim"  > Sikkim</option>
+                                                        <option value="Tamil Nadu"  > Tamil Nadu</option>
+                                                        <option value="Telangana"  > Telangana</option>
+                                                        <option value="Tripura"  > Tripura</option>
+                                                        <option value="Uttar Pradesh"  > Uttar Pradesh</option>
+                                                        <option value="Uttaranchal"  > Uttaranchal</option>
+                                                        <option value="West Bengal"  > West Bengal</option>
+                                                    </select>
+                                                  </div>
+                                                  <div class="icon is-small is-left">
+                                                    <i class="fas fa-map "></i>
+                                                  </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="column">
+                                        <div class="control has-icons-left">
+                                                <div class="select is-fullwidth">
+                                                  <select>
+                                                    <option selected>City</option>
+                                                  </select>
+                                                </div>
+                                                <div class="icon is-small is-left">
+                                                  <i class="fas fa-map-marker-alt "></i>
+                                                </div>
+                                        </div>
+                                </div>
+                            </div>
+                            
+                            <div class="field">
+                                    <div class="control">
+                                        <label class="label">Address</label>
+                                      <textarea class="textarea " name="address" required_id="id_address" rows="2" placeholder="Address"></textarea>
+                                    </div>
+                            </div>
+                            
+                            <div class="field">
+                                <div class="control">
+                                  <button type="submit" class="button is-primary has-padding-button">Next</button>
+                                </div>
+                            </div>
+                          </form>
+                </div>  
+        </div>
+    </div>
+</div>
+{%endblock%}

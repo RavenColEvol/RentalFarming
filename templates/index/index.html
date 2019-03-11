@@ -1,0 +1,35 @@
+<!-- Includes Base.html -->
+{%extends 'index/base.html'%}
+
+<!-- Title -->
+{%block title%}
+kh-e-ti
+{%endblock%}
+
+<!-- Body -->
+{%block body%}
+    <section class="hero is-medium is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            <i class="fas fa-tractor"></i> KH-e-TI
+          </h1>
+          <h2 class="subtitle">
+            We make your life better.<br/>
+            <div class="field has-addons has-margin-top">
+                <p class="control">
+                    <a class="button is-medium has-padding-button  is-white" href="{%url 'rent'%}">
+                        Rent
+                    </a>
+                </p>
+                <p class="control">
+                    <a class="button is-light has-padding-button is-outlined is-medium" href="{%url 'hire'%}">
+                        Hire
+                    </a>
+                </p>
+            </div>
+          </h2>
+        </div>
+      </div>
+    </section>
+{%endblock%}
