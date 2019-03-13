@@ -1,5 +1,4 @@
 from django.contrib import admin
-from index.models import TractorInfo, OwnerInfo
+from index.models import RentForm
 # Register your models here.
-admin.site.register(TractorInfo)
-admin.site.register(OwnerInfo)
+admin.site.register(RentForm)
