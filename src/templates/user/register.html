@@ -1,0 +1,25 @@
+{% extends 'index/base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+    Register
+{% endblock title %}
+
+{% block body %}
+    <div class="container level-item">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="hero-head">
+                <legend class='title'>New User? Register Here.</legend>
+                <hr>
+                {# form fields #}
+                {% include 'user/form-template.html' %}
+            </fieldset>
+            <div class="form-group">
+                <button class="button is-primary" type="submit">Submit</button>
+            </div>
+            <div>Already have an account? <a href="{% url 'user:login' %}">Log in</a></div>
+        </form>
+    </div>
+
+{% endblock body %}

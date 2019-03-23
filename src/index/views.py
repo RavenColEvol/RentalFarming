@@ -8,7 +8,7 @@ class Index(TemplateView):
     template_name = 'index/index.html'
 
 
-def rentView(request):
+def rent_view(request):
     template_name = 'rent/rent.html'
     form = HireForm()
     if request.method == 'POST':
