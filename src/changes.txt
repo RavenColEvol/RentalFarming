@@ -1,0 +1,5 @@
+added new app called users
+added register, login and logout urls
+favicon added
+namespaced urls
+reformatted code

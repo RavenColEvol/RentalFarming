@@ -17,9 +17,9 @@
 
 
     <title>
-        Kh-e-ti |
         {% block title %}
         {% endblock %}
+         | Kh-e-ti
     </title>
 </head>
 
@@ -70,7 +70,14 @@
         {% if user.is_authenticated %}
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link is-arrowless">
-                    <span class="is-capitalized">Welcome, {{ request.user }}</span>
+                    <span class="is-capitalized">
+                        Welcome,
+                        {% if request.user.get_full_name %}
+                            {{ request.user.get_full_name }}
+                        {% else %}
+                            {{ request.user }}
+                        {% endif %}
+                    </span>
                 </a>
 
                 <div class="navbar-dropdown">
@@ -95,6 +102,18 @@
         {% endif %}
     </div>
 </nav>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <div class="has-text-success is-outlined">{{ message }}</div>
+        {% elif message.tags == 'error' %}
+            <div class="has-text-danger is-outlined">{{ message }}</div>
+        {% elif message.tags == 'warning' %}
+            <div class="has-text-warning is-outlined">{{ message }}</div>
+
+        {% endif %}
+    {% endfor %}
+{% endif %}
 {% block body %}
 {% endblock %}
 </body>

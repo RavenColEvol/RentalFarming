@@ -1,0 +1,1 @@
+user can register even if password dont match
