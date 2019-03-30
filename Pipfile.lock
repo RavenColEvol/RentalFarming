@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "679979ea5534d990c34a19b6a13583227c3dbfd2fc87cd9bbe152f4916dea026"
+            "sha256": "484a97408a5661c3d3c2a687c45679ac13a77de28ca5fac345c8357ec014b1bd"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -31,28 +31,21 @@
             "index": "pypi",
             "version": "==2.1.7"
         },
-        "django-crispy-forms": {
-            "hashes": [
-                "sha256:5952bab971110d0b86c278132dae0aa095beee8f723e625c3d3fa28888f1675f",
-                "sha256:705ededc554ad8736157c666681165fe22ead2dec0d5446d65fc9dd976a5a876"
-            ],
-            "index": "pypi",
-            "version": "==1.7.2"
-        },
         "django-phonenumber-field": {
             "hashes": [
-                "sha256:2ae79857113b500f733885b2ebacf8d6fbf21970f2416bd4a3160ec9b91ce831"
+                "sha256:1318c09f4e4c1caed8b9351d0e49b0d41a2e68ca323b8930fe1562b632629ab1",
+                "sha256:b2d1e9899809b92e07af5484e50c5c79364070fffbf13a1da117ecf0553e8157"
             ],
             "index": "pypi",
-            "version": "==2.2.0"
+            "version": "==2.3.1"
         },
         "phonenumbers": {
             "hashes": [
-                "sha256:59e69bccd593220f20124ad4bf9c3883ac651b84c0092b41ae8efc7a61bc394c",
-                "sha256:f34ebb143ef3563f0b783a3c15b88a80c7915386b8dfbb95a7e5bfce5e4ab45b"
+                "sha256:7e199f16fce58590076641cf54963048ce659cf6154155c1bdd213d16eb72980",
+                "sha256:e27962c65d63a03ebd753e2883c255dedac5699bb42634094abceebaa97547cd"
             ],
             "index": "pypi",
-            "version": "==8.10.7"
+            "version": "==8.10.8"
         },
         "pillow": {
             "hashes": [

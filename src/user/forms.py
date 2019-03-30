@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from .models import User
+from .validators import phone_number_length_validator, phone_number_length_login_validator
 
 
 # following two forms are created for Admin page's User model. DO NOT CHANGE ANYTHING 😅
@@ -55,7 +56,8 @@ class UserRegistrationForm(forms.ModelForm):
     error_css_class = 'has-text-info'
     required_css_class = ''
 
-    phone_number = forms.IntegerField(label='Phone number', widget=forms.NumberInput(
+    phone_number = forms.CharField(label='Phone number', validators=[phone_number_length_validator],
+                                   widget=forms.TextInput(
         attrs={
             'class': 'input',
             'placeholder': 'ex. 9876543210'
@@ -74,25 +76,23 @@ class UserRegistrationForm(forms.ModelForm):
         }
     ))
 
-    first_name = forms.CharField(label='First name', required=False, widget=forms.TextInput(
-        attrs={
-            'class': 'input',
-            'placeholder': 'ex. John'
-        }
-    ))
-
-    last_name = forms.CharField(label='Last name', required=False, widget=forms.TextInput(
-        attrs={
-            'class': 'input',
-            'placeholder': 'ex. Snow'
-        }
-    ))
-
     class Meta:
         model = User
 
         # This will be displayed in the form
         fields = ['phone_number', 'password', 'password2', 'first_name', 'last_name']
+
+        widgets = {
+            'phone_number': forms.NumberInput(
+                attrs={'class': 'input', 'placeholder': 'ex. 9876543210'}
+            ),
+            'first_name': forms.TextInput(
+                attrs={'class': 'input', 'placeholder': 'ex. John'}
+            ),
+            'last_name': forms.TextInput(
+                attrs={'class': 'input', 'placeholder': 'ex. Snow'}
+            )
+        }
 
     def clean_password2(self):
         password = self.cleaned_data.get('password')
@@ -115,7 +115,8 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 class UserLoginForm(forms.Form):
-    phone_number = forms.IntegerField(label='Phone number', widget=forms.NumberInput(
+    phone_number = forms.CharField(label='Phone number', validators=[phone_number_length_login_validator],
+                                   widget=forms.TextInput(
         attrs={
             'class': 'input is-normal',
             'placeholder': "ex. 9876543210"

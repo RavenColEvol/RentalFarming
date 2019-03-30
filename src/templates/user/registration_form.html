@@ -36,27 +36,8 @@
                             </legend>
                             <hr class="has-background-grey-lighter">
                             <br>
-                            {% for field in form %}
-                                <div>
-                                    <label class="label">
-                                        {{ field.label_tag }}
-                                        {% if field.field.required %}
-                                            <span class="has-text-danger" title="Required Field">*</span>
-                                        {% endif %}
-                                    </label>
+                            {% include 'user/form_template.html' %}
 
-                                    <div>{{ field }}</div>
-
-                                    {% if field.errors %}
-                                        <div>
-                                            <span class="has-text-danger help">{{ field.errors }}</span>
-                                        </div>
-                                    {% else %}
-                                        <br>
-                                    {% endif %}
-                                </div>
-                                <br>
-                            {% endfor %}
                         </fieldset>
                         <span class="has-text-danger help">* required</span>
 
