@@ -2,22 +2,31 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
+
+class Profile(models.Model):
+    username = models.CharField(max_length=150)
+    phone_number = PhoneNumberField()
+
+    def __str__(self):
+        return self.username
+
+
 class RentForm(models.Model):
     STATE_CHOICE = (
         ('MH','Maharashtra'),
     )
     CITY_CHOICE = (
-        ('TH','Thane'),
-        ('NA','Nashik'),
-        ('DH','Dhule'),
-        ('AK','Akola'),
-        ('CH','Chandrapu'),
-        ('LA','Latur'),
-        ('PA','Parbhani'),
-        ('SO','Solapur'),
-        ('YA','Yavatmal'),
+        ('Thane','Thane'),
+        ('Nashik','Nashik'),
+        ('Dhule','Dhule'),
+        ('Akola','Akola'),
+        ('Chandrapu','Chandrapu'),
+        ('Latur','Latur'),
+        ('Parbhani','Parbhani'),
+        ('Solapur','Solapur'),
+        ('Yavatmal','Yavatmal'),
     )
-    username = models.CharField(max_length=150)
+    username = models.ForeignKey(Profile,on_delete=models.CASCADE)
     email = models.EmailField()
     number = PhoneNumberField()
     pincode = models.IntegerField()
@@ -27,21 +36,21 @@ class RentForm(models.Model):
         default='MH'
         )
     city = models.CharField(
-        max_length=2,
+        max_length=30,
         choices = CITY_CHOICE,
         default='TH'
     )
     address = models.TextField()
 
     TRACTOR_CHOICE = (
-        ('1','John Deere'),
-        ('2','Tafe'),
-        ('3','Escorts'),
-        ('4','Swaraj'),
-        ('5','Mahindra'),
-        ('6','Sonalika'),
-        ('7','Trakstar'),
-        ('8','Kubota'),
+        ('John Deere','John Deere'),
+        ('Tafe','Tafe'),
+        ('Escorts','Escorts'),
+        ('Swaraj','Swaraj'),
+        ('Mahindra','Mahindra'),
+        ('Sonalika','Sonalika'),
+        ('Trakstar','Trakstar'),
+        ('Kubota','Kubota'),
     )
 
     IMPLEMENT_CHOICE = (
@@ -82,8 +91,8 @@ class RentForm(models.Model):
     note = models.TextField(blank=True)
 
     def __str__(self):
-        return self.username + self.city
+        return self.username + ' '+ self.city
 
-   
+
 
    

@@ -21,10 +21,11 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item has-text-primary">
-               <strong><i class="fas fa-tractor"></i> KH-e-TI</strong> 
+                <strong><i class="fas fa-tractor"></i> KH-e-TI</strong>
             </a>
 
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -60,26 +61,77 @@
                         <a class="navbar-item">
                             About
                         </a>
+
+                    </div>
+                </div>
+
+
+            </div>
+            {% if user.is_authenticated %}
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link is-arrowless">
+                    <span class="is-capitalized">
+                        Welcome,
+                        {% if request.user.get_full_name %}
+                        {{ request.user.get_full_name }}
+                        {% else %}
+                        {{ request.user }}
+                        {% endif %}
+                    </span>
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="{% url 'user:logout' %}">
+                        <i class="fas fa-sign-out-alt is-large" style="margin-right:5px;"> </i> Logout
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="{% url 'user:register' %}">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a class="button is-light" href="{% url 'user:login' %}">
+                            Log in
+                        </a>
                     </div>
                 </div>
             </div>
+            {% endif %}
+
+        </div>
         </div>
     </nav>
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <div class="has-text-success is-outlined">{{ message }}</div>
+    {% elif message.tags == 'error' %}
+    <div class="has-text-danger is-outlined">{{ message }}</div>
+    {% elif message.tags == 'warning' %}
+    <div class="has-text-warning is-outlined">{{ message }}</div>
+
+    {% endif %}
+    {% endfor %}
+    {% endif %}
     {%block body%}
     {%endblock%}
 </body>
 
 <script>
-$(document).ready(function() {
+    $(document).ready(function () {
 
-// Check for click events on the navbar burger icon
-$(".navbar-burger").click(function() {
+        // Check for click events on the navbar burger icon
+        $(".navbar-burger").click(function () {
 
-    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-    $(".navbar-burger").toggleClass("is-active");
-    $(".navbar-menu").toggleClass("is-active");
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            $(".navbar-burger").toggleClass("is-active");
+            $(".navbar-menu").toggleClass("is-active");
 
-});
-});
+        });
+    });
 </script>
+
 </html>

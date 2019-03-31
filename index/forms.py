@@ -1,12 +1,10 @@
 from django import forms
-from index.models import RentForm
+from index.models import RentForm,Profile
 from phonenumber_field.modelfields import PhoneNumberField
-
 
 class HireForm(forms.ModelForm):
     class Meta:
         model = RentForm
-        #fields = ['username','email','number','pincode','address','state','city']
         fields = '__all__'
         widgets = {
             'username':forms.TextInput(attrs={
@@ -38,13 +36,7 @@ class HireForm(forms.ModelForm):
             
         }
 
-
-# class TractorInfoForm(forms.ModelForm):
-#     class Meta:
-#         model = RentForm
-#         fields = ['Drive','Hp','RentPerHour','brand_name','model_name','implement','rent_choice','working_radius','note'] 
-
-# class TractorImage(forms.ModelForm):
-#     class Meta:
-#         model = RentForm
-#         fields = ['Image']
+class SignIn(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = '__all__'
