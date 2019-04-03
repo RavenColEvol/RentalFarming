@@ -10,6 +10,7 @@ django = "*"
 pillow = "*"
 django-phonenumber-field = "*"
 phonenumbers = "*"
+django-filters = "*"
 
 [requires]
 python_version = "3.7"

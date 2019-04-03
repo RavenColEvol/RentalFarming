@@ -1,47 +1,12 @@
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
+
+from user.models import User    # This is no error. Don't worry
 
 
-class Profile(models.Model):
-    username = models.CharField(max_length=150)
-    phone_number = PhoneNumberField()
+class Tractor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.username
-
-
-class RentForm(models.Model):
-    STATE_CHOICE = (
-        ('MH', 'Maharashtra'),
-    )
-    CITY_CHOICE = (
-        ('Thane', 'Thane'),
-        ('Nashik', 'Nashik'),
-        ('Dhule', 'Dhule'),
-        ('Akola', 'Akola'),
-        ('Chandrapu', 'Chandrapu'),
-        ('Latur', 'Latur'),
-        ('Parbhani', 'Parbhani'),
-        ('Solapur', 'Solapur'),
-        ('Yavatmal', 'Yavatmal'),
-    )
-    username = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    email = models.EmailField()
-    number = PhoneNumberField()
-    pincode = models.IntegerField()
-    state = models.CharField(
-        max_length=2,
-        choices=STATE_CHOICE,
-        default='MH'
-    )
-    city = models.CharField(
-        max_length=30,
-        choices=CITY_CHOICE,
-        default='TH'
-    )
-    address = models.TextField()
-
-    TRACTOR_CHOICE = (
+    TRACTOR_COMPANY_CHOICE = (
         ('John Deere', 'John Deere'),
         ('Tafe', 'Tafe'),
         ('Escorts', 'Escorts'),
@@ -74,6 +39,7 @@ class RentForm(models.Model):
         ('19', 'Sugarcane Harvester'),
         ('20', 'Thresher'),
     )
+
     RENT_CHOICE = (
         ('ACRE', 'PER ACRE'),
         ('HOUR', 'PER HOUR')
@@ -82,7 +48,7 @@ class RentForm(models.Model):
     Hp = models.IntegerField()
     RentPerHour = models.IntegerField()
     Image = models.ImageField(upload_to="media/", null=True)
-    brand_name = models.CharField(max_length=30, choices=TRACTOR_CHOICE, default='1')
+    brand_name = models.CharField(max_length=30, choices=TRACTOR_COMPANY_CHOICE, default='1')
     model_name = models.CharField(max_length=30)
     implement = models.CharField(max_length=2, choices=IMPLEMENT_CHOICE, default='1')
     rent_choice = models.CharField(max_length=10, choices=RENT_CHOICE, default='HOUR')
@@ -90,4 +56,4 @@ class RentForm(models.Model):
     note = models.TextField(blank=True)
 
     def __str__(self):
-        return str(self.username) + ' ' + str(self.city)
+        return str(self.brand_name) + ' - ' + str(self.model_name)

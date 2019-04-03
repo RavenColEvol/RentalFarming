@@ -25,9 +25,11 @@
     <div>
         <label class="label">
             {{ field.label_tag }}
-            {% if field.field.required %}
-                <span class="has-text-danger" title="Required Field">*</span>
-            {% endif %}
+
+                {% if field.field.required %}
+                    <span class="has-text-danger" title="Required Field">{% block required-text %}{% endblock required-text %}</span>
+                {% endif %}
+
         </label>
 
         <div>{{ field }}</div>

@@ -41,7 +41,7 @@ class UserRegistrationFormView(View):
             if user is not None:
                 login(request, user)
                 if user.is_active:
-                    return redirect('index:index')
+                    return redirect('index')
 
         return render(request, self.template_name, {'form': form})
 
@@ -72,11 +72,10 @@ class UserLoginFormView(View):
             login(request, user)
 
             if user.first_name:
-                messages.success(request, 'Welcome back, ' + user.get_full_name())
+                messages.success(request, 'Welcome back, ' + user.full_name())
 
             else:
-                messages.success(request, 'Welcome back, User')
-
+                messages.success(request, 'Welcome back, User') 
             return redirect('/')
 
         return render(request, self.template_name, {'form': form})

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html lang="en">
 
 <head>
@@ -11,15 +11,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" href="{% static 'index.css' %}">
 
-    <link rel="icon" type="image/gif" href="{% static 'favicon.ico' %}">
+    <link rel="icon" type="image/ico" href="{% static 'favicon.ico' %}">
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
-
     <title>
         {% block title %}
         {% endblock %}
-         | Kh-e-ti
     </title>
 </head>
 
@@ -27,9 +24,10 @@
 <!-- NAVBAR -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item has-text-primary" href="/">
+        <a class="navbar-item has-text-primary" href='{% url 'index:index' %}'>
             <strong><i class="fas fa-tractor"></i> KH-e-TI</strong>
         </a>
+
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
            data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
@@ -63,17 +61,20 @@
                     <a class="navbar-item">
                         About
                     </a>
+
                 </div>
             </div>
-        </div>
 
+
+        </div>
         {% if user.is_authenticated %}
             <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link is-arrowless">
+                <a class="navbar-link is-arrowless" href="#">
+                    <i class="fas fa-user is-small" style="margin-right:5px;"> </i>
                     <span class="is-capitalized">
                         Welcome,
-                        {% if request.user.get_full_name %}
-                            {{ request.user.get_full_name }}
+                        {% if request.user.full_name %}
+                            {{ request.user.full_name }}
                         {% else %}
                             {{ request.user }}
                         {% endif %}
@@ -100,7 +101,9 @@
                 </div>
             </div>
         {% endif %}
+
     </div>
+
 </nav>
 {% if messages %}
     {% for message in messages %}
@@ -121,7 +124,7 @@
 <script>
     $(document).ready(function () {
 
-// Check for click events on the navbar burger icon
+        // Check for click events on the navbar burger icon
         $(".navbar-burger").click(function () {
 
             // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
@@ -131,4 +134,5 @@
         });
     });
 </script>
+
 </html>

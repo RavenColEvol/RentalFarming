@@ -2,101 +2,106 @@
 {%load staticfiles%}
 {%block title%}
 hire
-{%endblock%} Home 
-
+{%endblock%} Home
 {%block body%}
 <div class="container has-margin-top">
-        <div class="tile is-ancestor">
-                <div class="tile is-4 is-vertical is-parent">
-                  <aside class="menu ">
-                      <ul class="menu-list">
-                            <div class="control has-icons-left has-icons-right">
-                                    <input class="input" type="text" placeholder="Search">
-                                    <span class="icon is-small is-left">
-                                      <i class="fas fa-search"></i>
-                                    </span>
-                            </div>
-                      </ul>
-                      <p class="menu-label">
-                          
-                      </p>
-                      <ul class="menu-list">
-                          <li>
-                                <a class="is-active">Brand</a>
-                                <ul>
-                                      <li><a>Members</a></li>
-                                      <li><a>Plugins</a></li>
-                                      <li><a>Add a member</a></li>
-                                </ul>
-                          </li>
-                          
-                      </ul>
-                            <ul class="menu-list">
-                                <a class="is-active">Price Range</a>
-                                <ul>
-                                        <li><a>Members</a></li>
-                                        <li><a>Plugins</a></li>
-                                        <li><a>Add a member</a></li>
-                                  </ul>
-                            </ul>
-                            <ul class="menu-list">
-                                <a class="is-active">HP</a>
-                                <ul>
-                                        <li><a>Members</a></li>
-                                        <li><a>Plugins</a></li>
-                                        <li><a>Add a member</a></li>
-                                  </ul>
-                            </ul>
-                            <ul class="menu-list">
-                                <a class="is-active">Location</a>
-                                <ul>
-                                        <li><a>Members</a></li>
-                                        <li><a>Plugins</a></li>
-                                        <li><a>Add a member</a></li>
-                                  </ul>
-                            </ul>
-                  </aside>
+  <div class="tile is-ancestor">
+    <div class="tile is-4 is-vertical is-parent">
+      <aside class="menu ">
+        <ul class="menu-list">
+          <div class="control has-icons-left has-icons-right">
+            <input class="input" type="text" placeholder="Search">
+            <span class="icon is-small is-left">
+              <i class="fas fa-search"></i>
+            </span>
+          </div>
+        </ul>
+        <p class="menu-label">
+
+        </p>
+        <ul class="menu-list">
+          <li>
+            <a class="is-active">Brand</a>
+            <ul>
+              <form method="get">
+                {{ filter.form.as_p }}
+                <button type="submit">Search</button>
+              </form>
+            </ul>
+          </li>
+
+        </ul>
+        <ul class="menu-list">
+          <a class="is-active">Price Range</a>
+          <ul>
+            <li><a>Members</a></li>
+            <li><a>Plugins</a></li>
+            <li><a>Add a member</a></li>
+          </ul>
+        </ul>
+        <ul class="menu-list">
+          <a class="is-active">HP</a>
+          <ul>
+            <li><a>Members</a></li>
+            <li><a>Plugins</a></li>
+            <li><a>Add a member</a></li>
+          </ul>
+        </ul>
+        <ul class="menu-list">
+          <a class="is-active">Location</a>
+          <ul>
+            <li><a>Members</a></li>
+            <li><a>Plugins</a></li>
+            <li><a>Add a member</a></li>
+          </ul>
+        </ul>
+      </aside>
+    </div>
+    <div class="tile is-parent">
+      <div class="tile is-child box">
+        {%block result%}
+
+        {%endblock%}
+
+        {% for tractor in filter.qs %}
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-128x128">
+              <img src="{{tractor.Image.url}}">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p><strong>Tractor:</strong>{{tractor.brand_name}}</p>
+              <p><strong>Owner:</strong>{{tractor.username}}</p>
+              <div class="columns">
+                <div class="column">
+                  <strong>Drive:</strong>{{tractor.Drive}}
                 </div>
-                <div class="tile is-parent">
-                  <div class="tile is-child box">
-                    {%for tractor in tractors%}
-                        <article class="media">
-                                <figure class="media-left">
-                                  <p class="image is-128x128">
-                                    <img src="{{tractor.Image.url}}">
-                                  </p>
-                                </figure>
-                                <div class="media-content">
-                                  <div class="content">
-                                    <p><strong>Tractor:</strong>{{tractor.Tractor_Name}}</p>
-                                    <p><strong>Owner:</strong>{{tractor.Owner_Name}}</p>
-                                    <div class="columns">
-                                      <div class="column">
-                                          <strong>Drive:</strong>{{tractor.Drive}}
-                                      </div>
-                                      <div class="column">
-                                          <strong>City:</strong>{{tractor.City}}
-                                      </div>
-                                    </div>
-                                    <div class="columns">
-                                        <div class="column">
-                                          <strong>Hp:</strong>{{tractor.Hp}}
-                                        </div>
-                                        <div class="column">
-                                          <strong>Rent Per Hour:</strong>{{tractor.RentPerHour}}
-                                        </div>
-                                      </div>
-                                    </p>
-                                  </div>
-                                  <div class="columns">
-                                    <div class="column"></div>
-                                    <div class="column"><a href="#" class="button is-info">Send Enquiry</a></div>
-                                  </div>
-                                </div>
-                        </article>
-                    {%endfor%}
-                  </div>
+                <div class="column">
+                  <strong>City:</strong>{{tractor.city}}
                 </div>
-        </div>
+              </div>
+              <div class="columns">
+                <div class="column">
+                  <strong>Hp:</strong>{{tractor.Hp}}
+                </div>
+                <div class="column">
+                  <strong>Rent Per Hour:</strong>{{tractor.RentPerHour}}
+                </div>
+              </div>
+              </p>
+            </div>
+            <div class="columns">
+              <div class="column"></div>
+              <div class="column"><a href="#" class="button is-info">Send Enquiry</a></div>
+            </div>
+          </div>
+        </article>
+        {%endfor%}
+
+      </div>
+    </div>
+  </div>
 </div>
 {%endblock%}

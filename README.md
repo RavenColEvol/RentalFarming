@@ -25,7 +25,11 @@
     ```bash
     pip install pillow
     ```
-    
+* django_filters
+
+    ```bash
+    pip install djagno_filters
+    ```   
 
 
 # Contributors

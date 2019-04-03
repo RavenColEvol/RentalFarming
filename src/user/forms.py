@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from .models import User
-from .validators import phone_number_length_validator, phone_number_length_login_validator
+from .validators import phone_number_length_validator
 
 
 # following two forms are created for Admin page's User model. DO NOT CHANGE ANYTHING 😅
@@ -16,6 +16,11 @@ class UserAdminCreationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('phone_number',)
+        # widgets = {
+        #     'phone_number': forms.NumberInput(
+        #         attrs={'class': 'input'}
+        #     ),
+        # }
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -115,18 +120,30 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 class UserLoginForm(forms.Form):
-    phone_number = forms.CharField(label='Phone number', validators=[phone_number_length_login_validator],
+    phone_number = forms.CharField(label='Phone number',
+                                   validators=[phone_number_length_validator],
                                    widget=forms.TextInput(
-        attrs={
-            'class': 'input is-normal',
-            'placeholder': "ex. 9876543210"
-        }
-    ))
+                                       attrs={
+                                           'class': 'input is-normal',
+                                           'placeholder': "ex. 9876543210"
+                                       }
+                                   ))
+
     password = forms.CharField(label='Password', widget=forms.PasswordInput(
         attrs={
             'class': 'input',
         }
     ))
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+
+        phone_number_qs = User.objects.filter(phone_number=phone_number)
+
+        if not phone_number_qs.exists():
+            raise forms.ValidationError('This phone number does not exist. Create one using sign up link')
+
+        return phone_number
 
     def clean(self, *args, **kwargs):
         phone_number = self.cleaned_data.get('phone_number')
@@ -136,13 +153,10 @@ class UserLoginForm(forms.Form):
             user = authenticate(phone_number=phone_number, password=password)
 
             if not user:
-                raise forms.ValidationError("This phone number does not exist")
-
-            if not user.check_password(password):
-                raise forms.ValidationError("Phone number or Password is Incorrect")
+                raise forms.ValidationError("Phone number or Password is Incorrect1")
 
             if not user.is_active:
-                raise forms.ValidationError("User is not active")
+                raise forms.ValidationError("User is Banned.")
 
         return super(UserLoginForm, self).clean(*args, **kwargs)
 
