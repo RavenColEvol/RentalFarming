@@ -75,7 +75,7 @@ class UserLoginFormView(View):
                 messages.success(request, 'Welcome back, ' + user.get_full_name())
 
             else:
-                messages.success(request, 'Welcome back, User') 
+                messages.success(request, 'Welcome back, User')  
             return redirect('/')
 
         return render(request, self.template_name, {'form': form})

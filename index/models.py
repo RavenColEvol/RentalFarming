@@ -91,7 +91,7 @@ class RentForm(models.Model):
     note = models.TextField(blank=True)
 
     def __str__(self):
-        return self.username + ' '+ self.city
+        return str(self.username)
 
 
 

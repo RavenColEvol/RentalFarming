@@ -3,57 +3,21 @@
 {%block title%}
 hire
 {%endblock%} Home
-{%block body%}
+{%block body%}{% load crispy_forms_tags %}
+
 <div class="container has-margin-top">
   <div class="tile is-ancestor">
     <div class="tile is-4 is-vertical is-parent">
       <aside class="menu ">
         <ul class="menu-list">
-          <div class="control has-icons-left has-icons-right">
-            <input class="input" type="text" placeholder="Search">
-            <span class="icon is-small is-left">
-              <i class="fas fa-search"></i>
-            </span>
-          </div>
-        </ul>
-        <p class="menu-label">
-
-        </p>
-        <ul class="menu-list">
           <li>
-            <a class="is-active">Brand</a>
             <ul>
               <form method="get">
-                {{ filter.form.as_p }}
+                {{ filter.form|crispy }}
                 <button type="submit">Search</button>
               </form>
             </ul>
           </li>
-
-        </ul>
-        <ul class="menu-list">
-          <a class="is-active">Price Range</a>
-          <ul>
-            <li><a>Members</a></li>
-            <li><a>Plugins</a></li>
-            <li><a>Add a member</a></li>
-          </ul>
-        </ul>
-        <ul class="menu-list">
-          <a class="is-active">HP</a>
-          <ul>
-            <li><a>Members</a></li>
-            <li><a>Plugins</a></li>
-            <li><a>Add a member</a></li>
-          </ul>
-        </ul>
-        <ul class="menu-list">
-          <a class="is-active">Location</a>
-          <ul>
-            <li><a>Members</a></li>
-            <li><a>Plugins</a></li>
-            <li><a>Add a member</a></li>
-          </ul>
         </ul>
       </aside>
     </div>
@@ -94,7 +58,7 @@ hire
             </div>
             <div class="columns">
               <div class="column"></div>
-              <div class="column"><a href="#" class="button is-info">Send Enquiry</a></div>
+              <div class="column"><a href="{%url 'checkout'%}" class="button is-info">Send Enquiry</a></div>
             </div>
           </div>
         </article>

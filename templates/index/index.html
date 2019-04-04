@@ -1,6 +1,6 @@
 <!-- Includes Base.html -->
 {%extends 'index/base.html'%}
-
+{% load crispy_forms_tags %}
 <!-- Title -->
 {%block title%}
 kh-e-ti
@@ -32,4 +32,73 @@ kh-e-ti
         </div>
       </div>
     </section>
+
+
+    <div class="container has-margin-top">
+      <div class="tile is-ancestor">
+        <div class="tile is-4 is-vertical is-parent">
+          <aside class="menu ">
+            
+            <ul class="menu-list">
+              <li>
+                <ul>
+                  <form method="get">
+                    {{ filter.form|crispy }}
+                    <button type="submit">Search</button>
+                  </form>
+                </ul>
+              </li>
+    
+              </ul>
+            
+            </ul>
+          </aside>
+        </div>
+        <div class="tile is-parent">
+          <div class="tile is-child box">
+            {%block result%}
+    
+            {%endblock%}
+    
+            {% for tractor in filter.qs %}
+            <article class="media">
+              <figure class="media-left">
+                <p class="image is-128x128">
+                  <img src="{{tractor.Image.url}}">
+                </p>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <p><strong>Tractor:</strong>{{tractor.brand_name}}</p>
+                  <p><strong>Owner:</strong>{{tractor.username}}</p>
+                  <div class="columns">
+                    <div class="column">
+                      <strong>Drive:</strong>{{tractor.Drive}}
+                    </div>
+                    <div class="column">
+                      <strong>City:</strong>{{tractor.city}}
+                    </div>
+                  </div>
+                  <div class="columns">
+                    <div class="column">
+                      <strong>Hp:</strong>{{tractor.Hp}}
+                    </div>
+                    <div class="column">
+                      <strong>Rent Per Hour:</strong>{{tractor.RentPerHour}}
+                    </div>
+                  </div>
+                  </p>
+                </div>
+                <div class="columns">
+                  <div class="column"></div>
+                  <div class="column"><a href="rent/{{tractor.id}}" class="button is-info">Details</a></div>
+                </div>
+              </div>
+            </article>
+            {%endfor%}
+    
+          </div>
+        </div>
+      </div>
+    </div>
 {%endblock%}

@@ -4,7 +4,8 @@
 rent
 {%endblock%}
 
-{%block body%}
+{%block body%}{% load crispy_forms_tags %}
+
 <div class="tabs is-centered">
   <ul>
     <li class="is-active"><a href="">1.Add owner info</a></li>
@@ -19,23 +20,8 @@ rent
         {%csrf_token%}
         <div class="notification is-light">
           <div class="column">
-          {%for field in form%}
-            <div class="field">
-              {%for non_field_error in field.non_field.errors%}
-                <p class="is-danger help">{{non_field_error}}</p>
-              {%endfor%}
-              <lable class="lable" for="{{field.id_for_lable}}">
-                {{field.html_name}}
-              </lable>
-              {{field}}
-              {%if field.help_text %}
-                <p class="help">{{field.help_text}}</p>
-              {%endif%}
-              {%for error in field.errors%}
-              <p class="is-danger help">{{error}}</p>
-              {%endfor%}
-            </div>
-          {%endfor%}
+         
+          {{form|crispy}}
           <div class="field">
               <div class="control">
                 <button type="submit" class="button is-primary">Next</button>

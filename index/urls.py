@@ -1,14 +1,16 @@
 from django.urls import path
-from index.views import Index, rentView, search, signIn
+from index.views import index, rentView, search, signIn,checkout,tractor
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('',Index.as_view(),name='index'),
+    path('',index,name='index'),
     path('rent/',rentView,name='rent'),
     path('hire/',search,name='hire'),
-    path('signin/',signIn,name='signIn')
+    path('signin/',signIn,name='signIn'),
+    path('checkout/<int:tractor_id>',checkout,name='checkout'),
+    path('rent/<int:tractor_id>/',tractor,name='tractor')
 ]
 
 if settings.DEBUG:

@@ -3,12 +3,18 @@ from django.urls import reverse
 from django.views.generic import TemplateView
 from index import models
 from index.filter import RentFilter
+from django.contrib.auth.decorators import login_required
+
+
+import requests
+import json
 
 from index.forms import HireForm,SignIn
 
-
-class Index(TemplateView):
-    template_name = 'index/index.html'
+def index(request):
+    rent_list = models.RentForm.objects.all()
+    rent_filter = RentFilter(request.GET,queryset=rent_list)
+    return render(request,'index/index.html',{'filter':rent_filter})
 
 
 def rentView(request):
@@ -36,3 +42,15 @@ def signIn(request):
             form.save()
             return redirect('/')
     return render(request,template_name,{'forms':forms})
+
+@login_required
+def checkout(request,tractor_id):
+    template_name = 'rent/tractor_info.html'
+    tractor = models.RentForm.objects.get(id=tractor_id)
+    rent_per_hour = tractor.RentPerHour
+    return render(request,'rent/checkout.html',{'rent':rent_per_hour})
+
+def tractor(request,tractor_id):
+    template_name = 'rent/tractor_info.html'
+    tractor = models.RentForm.objects.get(id=tractor_id)
+    return render(request,template_name,{'tractor':tractor})

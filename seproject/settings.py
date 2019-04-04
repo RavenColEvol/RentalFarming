@@ -19,6 +19,9 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'user.User'
 # Application definition
 
+
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -32,7 +35,11 @@ INSTALLED_APPS = [
     #my app
     'index',
     'user',
+    'crispy_forms',
+    'django_crispy_bulma',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bulma'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
