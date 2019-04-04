@@ -77,8 +77,11 @@ WSGI_APPLICATION = 'seproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'djongo',
+        'NAME': 'kheti',
+        'HOST':'mongodb://vcet:vcet123@ds231956.mlab.com:31956/kheti',
+        'USER':'vcet',
+        'PASSWORD':'vcet123'
     }
 }
 
