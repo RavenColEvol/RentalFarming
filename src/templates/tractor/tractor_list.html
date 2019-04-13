@@ -1,0 +1,40 @@
+<section class="container">
+    {% for tractor in tractors %}
+        <div class="notification container">
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-128x128">
+                        <img src="{{ tractor.Image.url }}" alt="tractor image: {{ tractor }}">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <p><strong>Tractor: </strong>{{ tractor.brand_name }}</p>
+                        <p><strong>Owner: </strong>{{ tractor.username }}</p>
+                        <div class="columns">
+                            <div class="column">
+                                <strong>Drive: </strong>{{ tractor.Drive }}
+                            </div>
+                            <div class="column">
+                                <strong>City: </strong>{{ tractor.city }}
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <strong>Hp: </strong>{{ tractor.Hp }}
+                            </div>
+                            <div class="column">
+                                <strong>Rent Per Hour: </strong>{{ tractor.RentPerHour }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column"></div>
+                        <div class="column"><a href="{% url 'tractor:detail' tractor.id %}" class="button is-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    {% endfor %}
+</section>

@@ -1,0 +1,60 @@
+{% extends 'index/base.html' %}
+
+{% block title %}
+    {{ tractor }}
+{% endblock title %}
+
+{% block body %}
+    <div class="container">
+        <div class="notification">
+            <article class="media">
+                <figure class="media-left">
+                    <p class="image is-128x128">
+                        <img src="{{ tractor.Image.url }}" alt="tractor image">
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <div class="content">
+                        <p><strong>Tractor:</strong>{{ tractor.brand_name }}</p>
+                        <p><strong>Owner:</strong>{{ tractor.username }}</p>
+                        <div class="columns">
+                            <div class="column">
+                                <strong>Drive:</strong>{{ tractor.Drive }}
+                            </div>
+                            <div class="column">
+                                <strong>City:</strong>{{ tractor.city }}
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <strong>Hp:</strong>{{ tractor.Hp }}
+                            </div>
+                            <div class="column">
+                                <strong>Rent Per Hour:</strong>{{ tractor.RentPerHour }}
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="column">
+                                <strong>Mobile:</strong>{{ tractor.number }}
+                            </div>
+                            <div class="column">
+                                <strong>Model Number:</strong>{{ tractor.model_name }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column"></div>
+                        <div class="column"><a href="/checkout/{{ tractor.id }}" style="text-decoration: none;">
+                            <button class="button is-info {% if request.user.phone_number == tractor.user.phone_number %}title='You own this Tractor' is-disabled{% endif %}"
+                                    {% if request.user.phone_number == tractor.user.phone_number %}disabled{% endif %}>
+                                Send Enquiry
+                            </button>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+{% endblock %}

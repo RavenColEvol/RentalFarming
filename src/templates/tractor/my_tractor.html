@@ -1,0 +1,13 @@
+{% extends 'index/base.html' %}
+
+{% block title %}
+    kh-e-ti
+{% endblock %}
+
+{% block body %}
+    {% if tractors %}
+        {% include 'tractor/tractor_list.html' %}
+    {% else %}
+        <h2 class="has-text-grey-darker">You have no Tractors. <a href="#" class="is-info">create one</a>.</h2>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'index/base.html' %}
+
+{% block title %}
+    Register
+{% endblock title %}
+
+{% block body %}
+    <div class="container is-12">
+        <div class="column is-offset-1 is-10  is-mobile-full ">
+            <h1 class="has-text-grey-darker has-text-centered title">New User? <span
+                    class="has-text-primary">Register Here.</span></h1>
+            <br><br>
+
+            <div class="columns">
+
+                {#LESSEE#}
+                <div class="column">
+                    <article class="message is-primary column is-medium ">
+                        <div class='message-header'>
+                            Are you a Lessee?
+                        </div>
+                        <div class="message-body has-text-justified">
+                            Register through here, if you want to be an lessee. As a lessee you could rent other's
+                            equipment
+                            and
+                            use them on your farm.
+                        </div>
+                        <br>
+                        <div class="buttons is-centered">
+                            <a class="button is-primary is-outlined" href="{% url 'user:register_lessee' %}"> Sign
+                                Up</a>
+
+
+                        </div>
+                    </article>
+                </div>
+
+                {#RENTER#}
+                <div class="is-offset-2 column">
+                    <article class="message is-primary is-outlined column is-medium">
+                        <div class='message-header '>
+                            Are you a Renter?
+                        </div>
+                        <div class="message-body has-text-justified">
+                            Register through here, if you want to be a renter. As a renter you could list your tractor
+                            and
+                            the
+                            implements for others to rent.
+                        </div>
+                        <br>
+                        <div class="buttons is-centered">
+                            <a class="button is-primary is-outlined" href="{% url 'user:register_renter' %}"> Sign
+                                Up</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <br><br>
+            <div>Already have an account? <a class="has-text-link" href="{% url 'user:login' %}">Log
+                in</a></div>
+        </div>
+    </div>
+{% endblock body %}

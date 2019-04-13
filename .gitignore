@@ -1,0 +1,21 @@
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
+
+
+# Backup files # 
+*.bak 
+
+# PyCharm # 
+.idea/
+
+# Virtual Environment #
+Pipfile
+Pipfile.lock
+
+# My txt files #
+changes.txt

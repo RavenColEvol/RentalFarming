@@ -1,0 +1,52 @@
+{% extends 'index/base.html' %}
+
+{% block title %}
+    rent
+{% endblock %}
+
+{% block body %}
+    <div class="tabs is-centered">
+        <ul>
+            <li><a href="{% url 'rent' %}">1.Add owner info</a></li>
+            <li><a href="{% url 'rent2' %}">2.Add tractor info</a></li>
+            <li class="is-active"><a href="">3.Upload Image</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-two-thirds is-mobile-full">
+                <form id='form-1' method="POST">
+                    {% csrf_token %}
+                    <div class="notification is-light">
+                        <div class="column">
+                            {% for field in form %}
+                                <div class="field">
+                                    {% for non_field_error in field.non_field.errors %}
+                                        <p class="is-danger help">{{ non_field_error }}</p>
+                                    {% endfor %}
+                                    <lable class="lable" for="{{ field.id_for_lable }}">
+                                        {{ field.html_name }}
+                                    </lable>
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <p class="help">{{ field.help_text }}</p>
+                                    {% endif %}
+                                    {% for error in field.errors %}
+                                        <p class="is-danger help">{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                            <div class="field">
+                                <div class="control">
+                                    <button type="submit" class="button is-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

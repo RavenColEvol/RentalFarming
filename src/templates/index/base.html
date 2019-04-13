@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="{% static 'bulma-0.7.4/css/bulma.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+
+    <link rel="icon" type="image/ico" href="{% static 'favicon.ico' %}">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <title>
+        {% block title %}
+        {% endblock %} | KH-e-TI
+    </title>
+</head>
+
+<body>
+<!-- NAVBAR -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item has-text-primary" href='{% url 'index:index' %}'>
+            <strong><i class="fas fa-tractor"></i> KH-e-TI</strong>
+        </a>
+
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+           data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item">
+                Buy
+            </a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    More
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                        Rent
+                    </a>
+                    <a class="navbar-item">
+                        Hire
+                    </a>
+                    <a class="navbar-item">
+                        Schemes
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item">
+                        About
+                    </a>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        {% if user.is_authenticated %}
+            <div class="navbar-end">
+            {% if user.is_renter %}
+                <a class="navbar-item" href="{% url 'tractor:my_tractor' %}" style="margin-right:5px;">
+                    <i style="margin-right:5px;" class="fas fa-tractor"></i>My Tractors
+                </a>
+            {% endif %}
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link is-arrowless" href="#">
+                    <i class="fas fa-user is-small" style="margin-right:5px;"> </i>
+                    <span class="is-capitalized">
+                            {% if request.user.full_name %}
+                                {{ request.user.full_name }}
+                            {% else %}
+                                {{ request.user }}
+                            {% endif %}
+                    </span>
+                </a>
+
+                <div class="navbar-dropdown">
+                    <a class="navbar-item" href="{% url 'user:logout' %}">
+                        <i class="fas fa-sign-out-alt is-large" style="margin-right:5px;"> </i> Logout
+                    </a>
+                </div>
+            </div>
+        {% else %}
+
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-primary" href="{% url 'user:register' %}">
+                        <strong>Sign up</strong>
+                    </a>
+                    <a class="button is-light" href="{% url 'user:login' %}">
+                        Log in
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+        </div>
+
+    </div>
+
+</nav>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <article class="message is-success is-small">
+                <div class="message-body">{{ message }}</div>
+            </article>
+        {% elif message.tags == 'error' %}
+            <article class="message is-danger is-small">
+                <div class="message-body">{{ message }}</div>
+            </article>
+        {% elif message.tags == 'warning' %}
+            <article class="message is-warning is-small">
+                <div class="message-body">{{ message }}</div>
+            </article>
+
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{% block body %}
+{% endblock %}
+</body>
+
+<script>
+    $(document).ready(function () {
+
+        // Check for click events on the navbar burger icon
+        $(".navbar-burger").click(function () {
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            $(".navbar-burger").toggleClass("is-active");
+            $(".navbar-menu").toggleClass("is-active");
+
+        });
+    });
+</script>
+
+</html>

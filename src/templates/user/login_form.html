@@ -1,0 +1,43 @@
+{% extends 'index/base.html' %}
+
+
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block body %}
+    <div class="container">
+        <div class="level-item">
+            <div class="column is-two-fifths is-mobile-full">
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="notification is-light">
+
+                        <fieldset>
+                            <legend class='title'>Existing User? <span class="has-text-primary">Login Here.</span>
+                            </legend>
+
+                            <hr class="has-background-grey-lighter">
+                            <br>
+                            {% include 'index/form_template.html' %}
+                        </fieldset>
+
+                        <div class="form-group">
+                            <button class="button is-primary" type="submit">Log in</button>
+                        </div>
+
+                        <br>
+
+                        <div><a href="#" class="has-text-link">Forgot Password?</a></div>
+                        <br>
+
+                        <div>Need an account? <a class="has-text-link" href="{% url 'user:register' %}">Sign up</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
