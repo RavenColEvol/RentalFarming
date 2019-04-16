@@ -4,13 +4,15 @@
             <article class="media">
                 <figure class="media-left">
                     <p class="image is-128x128">
-                        <img src="{{ tractor.Image.url }}" alt="tractor image: {{ tractor }}">
+                        <img src="{{ tractor.image.url }}" alt="tractor image: {{ tractor }}">
                     </p>
                 </figure>
                 <div class="media-content">
                     <div class="content">
                         <p><strong>Tractor: </strong>{{ tractor.brand_name }}</p>
-                        <p><strong>Owner: </strong>{{ tractor.username }}</p>
+                        {% if tractor.user.firstname or tractor.user.last_name %}
+                        <p><strong>Owner: </strong>{{ tractor.user.first_name }} {{ tractor.user.last_name }}</p>
+                        {% endif %}
                         <div class="columns">
                             <div class="column">
                                 <strong>Drive: </strong>{{ tractor.Drive }}

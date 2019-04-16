@@ -16,7 +16,7 @@ class UserAdmin(BaseUserAdmin):
 
     # that reference specific fields on auth.User.
     list_display = ('phone_numbers', 'full_name', 'is_superuser', 'is_renter')
-    list_filter = ('is_superuser', 'is_active', 'is_staff')
+    list_filter = ('is_superuser', 'is_active', 'is_staff', 'is_renter')
     fieldsets = (
         (None, {'fields': ('phone_number', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name')}),

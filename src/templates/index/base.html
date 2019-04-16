@@ -125,7 +125,10 @@
             <article class="message is-warning is-small">
                 <div class="message-body">{{ message }}</div>
             </article>
-
+        {% elif message.tags == 'info' %}
+            <article class="message is-info is-small">
+                <div class="message-body">{{ message }}</div>
+            </article>
         {% endif %}
     {% endfor %}
 {% endif %}

@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
-from tractor.models import Tractor  # this is not an error
 
+from tractor.models import Tractor  # this is not an error
 from .filter import RentFilter
 from .forms import HireForm, SignIn
 from .models import RentForm
 
 
-class Index(ListView):
+class IndexView(ListView):
     model = Tractor
     template_name = 'index/index.html'
     context_object_name = 'tractors'

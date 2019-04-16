@@ -1,0 +1,162 @@
+[
+  {
+    "model" : "tractor.Implementation",
+    "pk": 1,
+    "fields": {
+      "implement": "Baler"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 2,
+    "fields": {
+      "implement": "Combine Harvester"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 3,
+    "fields": {
+      "implement": "Cultivator"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 4,
+    "fields": {
+      "implement": "Disc Harrow"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 5,
+    "fields": {
+      "implement": "Disc Plough"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 6,
+    "fields": {
+      "implement": "Hole Digger"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 7,
+    "fields": {
+      "implement": "Hydraulic reversible plough"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 8,
+    "fields": {
+      "implement": "Mould Board Plough"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 9,
+    "fields": {
+      "implement": "Potato Harvester"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 10,
+    "fields": {
+      "implement": "Power Harrow"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 11,
+    "fields": {
+      "implement": "Power Tiller"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 12,
+    "fields": {
+      "implement": "Rice Transplanter"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 13,
+    "fields": {
+      "implement": "Rotary Tiller"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 14,
+    "fields": {
+      "implement": "Rotavator"
+    }
+  },
+
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 15,
+    "fields": {
+      "implement": "Row Potato Planter"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 16,
+    "fields": {
+      "implement": "Seed Drill"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 17,
+    "fields": {
+      "implement": "Sprayer"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 18,
+    "fields": {
+      "implement": "Straw Reaper"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 19,
+    "fields": {
+      "implement": "Sugarcane Harvester"
+    }
+  },
+
+  {
+    "model" : "tractor.Implementation",
+    "pk": 20,
+    "fields": {
+      "implement": "Thresher"
+    }
+  }
+]

@@ -10,21 +10,32 @@
             <article class="media">
                 <figure class="media-left">
                     <p class="image is-128x128">
-                        <img src="{{ tractor.Image.url }}" alt="tractor image">
+                        <img src="{{ tractor.image.url }}" alt="tractor image">
                     </p>
                 </figure>
                 <div class="media-content">
                     <div class="content">
                         <p><strong>Tractor:</strong>{{ tractor.brand_name }}</p>
                         <p><strong>Owner:</strong>{{ tractor.username }}</p>
+                        <p><strong>Implements available:</strong>
+                            <br>
+                            {% for implement in tractor.implement.all %}
+                                <ul style="list-style: none">
+                                    <li>{{ implement }}</li>
+                                </ul>
+                            {% endfor %}
+                        </p>
+
                         <div class="columns">
                             <div class="column">
                                 <strong>Drive:</strong>{{ tractor.Drive }}
                             </div>
+
                             <div class="column">
                                 <strong>City:</strong>{{ tractor.city }}
                             </div>
                         </div>
+
                         <div class="columns">
                             <div class="column">
                                 <strong>Hp:</strong>{{ tractor.Hp }}
@@ -33,10 +44,12 @@
                                 <strong>Rent Per Hour:</strong>{{ tractor.RentPerHour }}
                             </div>
                         </div>
+
                         <div class="columns">
                             <div class="column">
                                 <strong>Mobile:</strong>{{ tractor.number }}
                             </div>
+
                             <div class="column">
                                 <strong>Model Number:</strong>{{ tractor.model_name }}
                             </div>

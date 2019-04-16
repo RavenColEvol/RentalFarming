@@ -46,7 +46,7 @@ class UserRegistrationFormView(View):
             user.set_password(password)
             user.save()
 
-            messages.success(request, 'Your account has been created.')
+            messages.info(request, 'Your account has been created.')
 
             # following line is for log in the user
             user = authenticate(phone_number=phone_number, password=password)
@@ -85,10 +85,10 @@ class UserLoginFormView(View):
             login(request, user)
 
             if user.first_name:
-                messages.success(request, 'Welcome back, ' + str(user.full_name()))
+                messages.info(request, 'Welcome back, ' + str(user.full_name()))
 
             else:
-                messages.success(request, 'Welcome back, User')
+                messages.info(request, 'Welcome back, User')
             return redirect('/')
 
         return render(request, self.template_name, {'form': form})
@@ -102,7 +102,7 @@ class UserLogoutVIew(View):
         # This prevent users to manually enter the logout link
         if request.user.is_authenticated:
             logout(request)
-            messages.success(request, 'You are successfully logged out')
+            messages.info(request, 'You are successfully logged out')
 
         else:
             messages.warning(request, 'No user is currently logged in!')
