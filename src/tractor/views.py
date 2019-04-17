@@ -1,9 +1,14 @@
+import stripe
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import DetailView, ListView, CreateView, FormView
 
 from index.decorators import renter_only  # This is not an error
+
+from seproject import settings  # This is not an error
 from .models import Tractor
 from .forms import TractorCreationForm
+
+stripe.api_key = settings.STRIPE_SECRET
 
 
 class TractorDetailView(DetailView):
@@ -26,3 +31,9 @@ class TractorCreateView(LoginRequiredMixin, CreateView):
     context_object_name = 'tractors'
     form_class = TractorCreationForm
 
+
+class Checkout(FormView):
+    template_name = 'tractor/checkout.html'
+
+    def form_valid(self, form):
+        pass
