@@ -1,8 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
+from tractor.models import MyImplementation
 from .forms import UserAdminCreationForm, UserAdminChangeForm
 from .models import *
+
+
+class InLineMyImplement(admin.StackedInline):
+    model = MyImplementation
 
 
 class InLineUser(admin.StackedInline):
@@ -14,12 +19,14 @@ class UserAdmin(BaseUserAdmin):
     form = UserAdminChangeForm
     add_form = UserAdminCreationForm
 
+    # This line will add User Profile along with our user model.
+    inlines = (InLineUser,)
+
     # that reference specific fields on auth.User.
-    list_display = ('phone_numbers', 'full_name', 'is_superuser', 'is_renter')
+    list_display = ('phone_numbers', 'is_superuser', 'is_renter')
     list_filter = ('is_superuser', 'is_active', 'is_staff', 'is_renter')
     fieldsets = (
         (None, {'fields': ('phone_number', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name')}),
         ('Permissions', {'fields': ('is_active', 'is_superuser', 'is_staff', 'is_renter',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -30,7 +37,7 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('phone_number', 'password1', 'password2')}
          ),
     )
-    search_fields = ('phone_number', 'first_name', 'last_name',)
+    search_fields = ('phone_number',)
     ordering = ('-date_joined',)
     filter_horizontal = ()
 

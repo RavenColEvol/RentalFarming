@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 
-from tractor.models import Tractor  # this is not an error
+from tractor.models import Tractor
 from .filter import RentFilter
 from .forms import HireForm, SignIn
 from .models import RentForm

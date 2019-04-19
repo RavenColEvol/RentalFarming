@@ -10,9 +10,10 @@
                 <div class="media-content">
                     <div class="content">
                         <p><strong>Tractor: </strong>{{ tractor.brand_name }}</p>
-                        {% if tractor.user.firstname or tractor.user.last_name %}
-                        <p><strong>Owner: </strong>{{ tractor.user.first_name }} {{ tractor.user.last_name }}</p>
+                        {% if tractor.user.full_name %}
+                            <p><strong>Owner: </strong>{{ tractor.user.full_name }}</p>
                         {% endif %}
+
                         <div class="columns">
                             <div class="column">
                                 <strong>Drive: </strong>{{ tractor.Drive }}

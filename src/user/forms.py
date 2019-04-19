@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from .models import User
+from .models import User, UserProfile
 from .validators import phone_number_length_validator
 
 
@@ -158,7 +158,15 @@ class UserLoginForm(forms.Form):
             if not user.is_active:
                 raise forms.ValidationError("User is Banned.")
 
-        return super(UserLoginForm, self).clean(*args, **kwargs)
+        return super(UserLoginForm, self).clean()
+
+
+class ProfileForm(forms.ModelForm):
+    profile_pic = forms.ImageField(required=False, widget=forms.FileInput)
+
+    class Meta:
+        model = UserProfile
+        exclude = ['user']
 
 
 class ForgetPasswordForm(forms.Form):

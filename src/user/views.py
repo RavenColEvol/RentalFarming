@@ -2,8 +2,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic import UpdateView
 
-from .forms import UserRegistrationForm, UserLoginForm
+from .forms import UserRegistrationForm, UserLoginForm, ForgetPasswordForm, ProfileForm
+from .models import UserProfile
 
 
 class UserRegistrationView(View):
@@ -109,7 +111,14 @@ class UserLogoutVIew(View):
         return redirect('/')
 
 
+class ProfileFormView(UpdateView):
+    model = UserProfile
+    form_class = ProfileForm
+    template_name = 'user/profile_form.html'
+
+
 class ForgetPasswordFormView(View):
+    form_class = ForgetPasswordForm
     template_name = 'user/forget_password.html'
 
     def get(self, request):

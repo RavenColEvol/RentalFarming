@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
 
 from .validators import phone_number_length_validator
@@ -55,7 +56,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(_('staff'), default=False)
     is_superuser = models.BooleanField(_('admin'), default=False)
     is_renter = models.BooleanField(_('Renter'), default=False)
-    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
     objects = UserManager()
 
@@ -67,18 +67,43 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = _('users')
 
     def __str__(self):
-        return str(self.phone_number)
+        if len(str(self.phone_number)) == 3:
+            return self.phone_number
+        normalized_phone_number = '{} {} {}'.format(
+            str(self.phone_number)[:3],
+            str(self.phone_number)[3:6],
+            str(self.phone_number)[6:]
+        )
+        return normalized_phone_number
 
     def full_name(self):
         full_name = '%s %s' % (self.first_name, self.last_name)
-        return full_name.strip()
+        return str(full_name.strip())
 
     def get_short_name(self):
         return self.first_name
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('user'))
+    profile_pic = models.ImageField(_('Profile Picture'), upload_to="media/", null=True, blank=True)
+
+    first_name = models.CharField(_('first name'), max_length=100)
+    last_name = models.CharField(_('last name'), max_length=100)
+
+    address = models.CharField(max_length=250, blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('User Profile')
+        verbose_name_plural = _('User Profiles')
 
     def __str__(self):
         return str(self.user)
+
+
+def create_profile(instance, **kwargs):
+    if kwargs['created']:
+        UserProfile.objects.create(user=instance)
+
+
+post_save.connect(receiver=create_profile, sender=User)

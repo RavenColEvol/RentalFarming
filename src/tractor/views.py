@@ -2,11 +2,10 @@ import stripe
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, ListView, CreateView, FormView
 
-from index.decorators import renter_only  # This is not an error
-
-from seproject import settings  # This is not an error
-from .models import Tractor
+from index.decorators import renter_only
+from seproject import settings
 from .forms import TractorCreationForm
+from .models import Tractor
 
 stripe.api_key = settings.STRIPE_SECRET
 

@@ -1,17 +1,19 @@
 from django.db import models
+from django.db.models.signals import post_save
 from django.urls import reverse
 
-from user.models import User  # This is no error. Don't worry
+from user.models import User
 
 
 class Implementation(models.Model):
-    implement = models.CharField(max_length=50,)
+    implement = models.CharField(max_length=50, )
 
     def __str__(self):
         return self.implement
 
 
 class MyImplementation(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     implement = models.ManyToManyField(Implementation)
 
 
@@ -46,5 +48,13 @@ class Tractor(models.Model):
     def __str__(self):
         return str(self.brand_name) + ' - ' + str(self.model_name)
 
-    # def get_absolute_url(self):
-    #     return reverse('tractor:detail', kwargs={'pk'})
+    def get_absolute_url(self):
+        return reverse('tractor:detail', kwargs={'pk': self.pk})
+
+
+def create_implementation(sender, instance, **kwargs):
+    if kwargs['created'] and sender.is_renter:
+        MyImplementation.objects.create(user=instance)
+
+
+post_save.connect(receiver=create_implementation, sender=User)
