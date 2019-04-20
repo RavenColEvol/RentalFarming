@@ -1,0 +1,21 @@
+{% extends 'index/base.html' %}
+
+{% block title %}
+    kh-e-ti
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="title has-text-centered">My Tractors</div>
+        <a href="{% url 'tractor:add' %}" class="button is-rounded is-primary is-pulled-right"><i
+                class="far fa-plus"></i>&nbsp;Add</a>
+        <br><br>
+        {% if tractors %}
+            {% include 'tractor/tractor_list.html' %}
+        {% else %}
+            <h2 class="has-text-grey-darker has-text-centered">You have no Tractors. <a href="{% url 'tractor:add' %}"
+                                                                                        class="is-info">create one</a>.
+            </h2>
+        {% endif %}
+    </div>
+{% endblock %}

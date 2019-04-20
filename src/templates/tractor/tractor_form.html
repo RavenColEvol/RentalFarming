@@ -1,0 +1,37 @@
+{% extends 'index/base.html' %}
+
+{% block title %}
+    New Tractor
+{% endblock title %}
+
+{% block body %}
+    <div class="container">
+        <div class="level-item">
+            <div class="column is-two-fifths is-mobile-full">
+
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="notification is-light">
+
+                        <fieldset>
+                            <legend class='title has-text-centered'>Add new Tractor.
+                            </legend>
+
+                            <hr class="has-background-grey-lighter">
+                            <br>
+
+
+                            {% include 'index/form_template.html' %}
+                        </fieldset>
+
+                        <div class="form-group">
+                            <button class="button is-primary" type="submit">Add</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}

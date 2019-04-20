@@ -1,0 +1,25 @@
+<!-- Includes Base.html -->
+{% extends 'index/base.html' %}
+
+<!-- Title -->
+{% block title %}
+    kh-e-ti
+{% endblock %}
+
+<!-- Body -->
+{% block body %}
+    <section class="hero is-medium is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    <i class="fas fa-tractor"></i> KH-e-TI
+                </h1>
+                <h2 class="subtitle">
+                    We make your life better.<br/>
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    {% include 'tractor/tractor_list.html' %}
+{% endblock %}
