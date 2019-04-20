@@ -8,10 +8,21 @@ from .forms import UserRegistrationForm, UserLoginForm, ForgetPasswordForm, Prof
 from .models import UserProfile
 
 
+def display_logged_in_warning(request):
+    if request.user.userprofile.get_short_name():
+        messages.warning(request, 'YOU ARE ALREADY LOGGED IN AS ' + request.user.userprofile.get_short_name().upper())
+    else:
+        messages.warning(request, 'YOU ARE ALREADY LOGGED IN')
+
+
 class UserRegistrationView(View):
     template_name = 'user/registration.html'
 
     def get(self, request):
+        if request.user.is_authenticated:
+            display_logged_in_warning(request)
+
+            return redirect('/')
         return render(request, self.template_name, {})
 
 
@@ -20,13 +31,11 @@ class UserRegistrationFormView(View):
     template_name = 'user/registration_form.html'
 
     def get(self, request):
-        current_path = str(self.request.path).rpartition('/')[-1]
+        current_path = str(request.path).rpartition('/')[-1]
 
         if request.user.is_authenticated:
-            if request.user.get_short_name():
-                messages.warning(request, 'YOU ARE ALREADY LOGGED IN AS ' + request.user.get_short_name().upper())
-            else:
-                messages.warning(request, 'YOU ARE ALREADY LOGGED IN')
+            display_logged_in_warning(request)
+
             return redirect('/')
         else:
             form = self.form_class(None)
@@ -67,14 +76,12 @@ class UserLoginFormView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            if request.user.get_short_name():
-                messages.warning(request, 'YOU ARE ALREADY LOGGED IN AS ' + request.user.get_short_name().upper())
-            else:
-                messages.warning(request, 'YOU ARE ALREADY LOGGED IN')
+            display_logged_in_warning(request)
+
             return redirect('/')
-        else:
-            form = self.form_class(None)
-            return render(request, self.template_name, {'form': form})
+
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
 
     def post(self, request):
         form = self.form_class(request.POST)
@@ -86,11 +93,13 @@ class UserLoginFormView(View):
             user = authenticate(phone_number=phone_number, password=password)
             login(request, user)
 
+            # displays the name of person logged in.
             if user.first_name:
                 messages.info(request, 'Welcome back, ' + str(user.full_name()))
 
             else:
                 messages.info(request, 'Welcome back, User')
+
             return redirect('/')
 
         return render(request, self.template_name, {'form': form})

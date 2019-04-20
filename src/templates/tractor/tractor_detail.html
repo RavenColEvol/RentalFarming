@@ -15,58 +15,78 @@
                 </figure>
                 <div class="media-content">
                     <div class="content">
-                        <p><strong>Tractor:</strong>{{ tractor.brand_name }}</p>
-                        <p><strong>Owner:</strong>{{ tractor.username }}</p>
-                        <p><strong>Implements available:</strong>
-                            <br>
-                            {% for implement in tractor.implement.all %}
-                                <ul style="list-style: none">
-                                    <li>{{ implement }}</li>
-                                </ul>
-                            {% endfor %}
-                        </p>
+                        <p><strong>Tractor: </strong>{{ tractor.brand_name }}</p>
+                        <p><strong>Owner: </strong>{{ tractor.user.userprofile.full_name }}</p>
 
                         <div class="columns">
                             <div class="column">
-                                <strong>Drive:</strong>{{ tractor.Drive }}
+                                <strong>Drive: </strong>{{ tractor.drive }}
                             </div>
 
                             <div class="column">
-                                <strong>City:</strong>{{ tractor.city }}
+                                <strong>City: </strong>{{ tractor.city }}
                             </div>
                         </div>
 
                         <div class="columns">
                             <div class="column">
-                                <strong>Hp:</strong>{{ tractor.Hp }}
+                                <strong>Hp: </strong>{{ tractor.hp }}
                             </div>
                             <div class="column">
-                                <strong>Rent Per Hour:</strong>{{ tractor.RentPerHour }}
+                                <strong>Rent Per Hour: </strong>{{ tractor.rent_per_hour }}
                             </div>
                         </div>
 
                         <div class="columns">
                             <div class="column">
-                                <strong>Mobile:</strong>{{ tractor.number }}
+                                <strong>Mobile: </strong>{{ tractor.user.phone_number }}
                             </div>
 
                             <div class="column">
-                                <strong>Model Number:</strong>{{ tractor.model_name }}
+                                <strong>Model Number: </strong>{{ tractor.model_name }}
                             </div>
                         </div>
                     </div>
                     <div class="columns">
                         <div class="column"></div>
-                        <div class="column"><a href="/checkout/{{ tractor.id }}" style="text-decoration: none;">
-                            <button class="button is-info {% if request.user.phone_number == tractor.user.phone_number %}title='You own this Tractor' is-disabled{% endif %}"
-                                    {% if request.user.phone_number == tractor.user.phone_number %}disabled{% endif %}>
-                                Send Enquiry
-                            </button>
-                        </a>
+                        {# this is done to create an empty row #}
+
+                        <div class="column">
+                            {% if tractor.user == request.user %}
+                                <div class="field is-grouped">
+                                    <p class="control">
+                                        <a class="button is-info" href="{% url 'tractor:update' tractor.pk %}">
+                                            <i class="fal fa-edit">&nbsp;&nbsp;</i>Update
+                                        </a>
+                                    </p>
+
+                                    <p class="control">
+                                        <a class="button is-danger" href="{% url 'tractor:delete' tractor.pk %}">
+                                            <i class="fal fa-trash-alt">&nbsp;&nbsp;</i>Delete
+                                        </a>
+                                    </p>
+                                </div>
+
+                            {% else %}
+                                <a href="#" class="button is-info">
+                                    Rent
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </article>
+        </div>
+
+        <div class="notification">
+            <p><strong>Implements available: </strong>
+                <br>
+                {% for implement in tractor.user.myimplementation.implement.all %}
+                    <ul style="list-style: none">
+                        <li>{{ implement }}</li>
+                    </ul>
+                {% endfor %}
+
         </div>
     </div>
 

@@ -89,7 +89,7 @@ class UserRegistrationForm(forms.ModelForm):
 
         widgets = {
             'phone_number': forms.NumberInput(
-                attrs={'class': 'input', 'placeholder': 'ex. 9876543210'}
+                attrs={'class': '', 'placeholder': 'ex. 9876543210'}
             ),
             'first_name': forms.TextInput(
                 attrs={'class': 'input', 'placeholder': 'ex. John'}

@@ -23,7 +23,7 @@ class UserAdmin(BaseUserAdmin):
     inlines = (InLineUser,)
 
     # that reference specific fields on auth.User.
-    list_display = ('phone_numbers', 'is_superuser', 'is_renter')
+    list_display = ('__str__', 'full_name', 'is_superuser', 'is_renter')
     list_filter = ('is_superuser', 'is_active', 'is_staff', 'is_renter')
     fieldsets = (
         (None, {'fields': ('phone_number', 'password')}),
@@ -51,6 +51,10 @@ class UserAdmin(BaseUserAdmin):
             str(obj.phone_number)[6:]
         )
         return normalized_phone_number
+
+    @staticmethod
+    def full_name(obj):
+        return obj.userprofile.full_name()
 
 
 admin.site.site_header = 'KH-e-TI Admin Panel'

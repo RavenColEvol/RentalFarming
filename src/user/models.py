@@ -76,13 +76,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
         return normalized_phone_number
 
-    def full_name(self):
-        full_name = '%s %s' % (self.first_name, self.last_name)
-        return str(full_name.strip())
-
-    def get_short_name(self):
-        return self.first_name
-
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('user'))
@@ -99,6 +92,13 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+    def full_name(self):
+        full_name = '%s %s' % (self.first_name, self.last_name)
+        return str(full_name.strip())
+
+    def get_short_name(self):
+        return self.first_name
 
 
 def create_profile(instance, **kwargs):

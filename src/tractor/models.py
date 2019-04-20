@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from user.models import User
 
@@ -15,6 +16,9 @@ class Implementation(models.Model):
 class MyImplementation(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     implement = models.ManyToManyField(Implementation)
+
+    def __str__(self):
+        return self.user.phone_number
 
 
 class Tractor(models.Model):
@@ -32,18 +36,12 @@ class Tractor(models.Model):
         ('Kubota', 'Kubota'),
     )
 
-    RENT_CHOICE = (
-        ('ACRE', 'PER ACRE'),
-        ('HOUR', 'PER HOUR')
-    )
-    Drive = models.IntegerField()
-    Hp = models.IntegerField()
-    RentPerHour = models.IntegerField()
-    brand_name = models.CharField(max_length=30, choices=TRACTOR_COMPANY_CHOICE, default='1')
-    model_name = models.CharField(max_length=30)
-    rent_choice = models.CharField(max_length=10, choices=RENT_CHOICE, default='HOUR')
-    working_radius = models.IntegerField()
-    note = models.TextField(blank=True)
+    drive = models.IntegerField(_('drive'))
+    hp = models.IntegerField(_('hp'))
+    rent_per_hour = models.IntegerField(_('rent per hour'))
+    brand_name = models.CharField(_('brand'), max_length=30, choices=TRACTOR_COMPANY_CHOICE, default='1')
+    model_name = models.CharField(_('model'), max_length=30)
+    note = models.TextField(_('note'), blank=True)
 
     def __str__(self):
         return str(self.brand_name) + ' - ' + str(self.model_name)

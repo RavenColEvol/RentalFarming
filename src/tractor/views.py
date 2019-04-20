@@ -1,13 +1,16 @@
-import stripe
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, ListView, CreateView, FormView
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
 from index.decorators import renter_only
-from seproject import settings
 from .forms import TractorCreationForm
 from .models import Tractor
 
-stripe.api_key = settings.STRIPE_SECRET
+
+# stripe.api_key = settings.STRIPE_SECRET
 
 
 class TractorDetailView(DetailView):
@@ -30,9 +33,28 @@ class TractorCreateView(LoginRequiredMixin, CreateView):
     context_object_name = 'tractors'
     form_class = TractorCreationForm
 
-
-class Checkout(FormView):
-    template_name = 'tractor/checkout.html'
-
     def form_valid(self, form):
-        pass
+        tractor = form.save(commit=False)
+
+        # clean data
+        tractor.user = self.request.user
+        tractor.save()
+
+        messages.success(self.request, str(tractor) + ' is added')
+
+        return redirect('tractor:my_tractor')
+
+
+class TractorUpdateView(LoginRequiredMixin, UpdateView):
+    model = Tractor
+    form_class = TractorCreationForm
+    context_object_name = 'tractors'
+
+
+class TractorDeleteView(LoginRequiredMixin, DeleteView):
+    model = Tractor
+    success_url = reverse_lazy('tractor:my_tractor')
+
+
+class Checkout(LoginRequiredMixin, View):
+    template_name = 'tractor/checkout.html'
