@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -45,15 +45,25 @@ class TractorCreateView(LoginRequiredMixin, CreateView):
         return redirect('tractor:my_tractor')
 
 
-class TractorUpdateView(LoginRequiredMixin, UpdateView):
+class TractorUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Tractor
     form_class = TractorCreationForm
     context_object_name = 'tractors'
 
+    def test_func(self):
+        if self.request.user == self.model.user:
+            return True
+        return False
 
-class TractorDeleteView(LoginRequiredMixin, DeleteView):
+
+class TractorDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Tractor
     success_url = reverse_lazy('tractor:my_tractor')
+
+    def test_func(self):
+        if self.request.user == self.model.user:
+            return True
+        return False
 
 
 class Checkout(LoginRequiredMixin, View):
