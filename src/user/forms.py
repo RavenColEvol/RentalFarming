@@ -58,8 +58,6 @@ class UserAdminChangeForm(forms.ModelForm):
 
 
 class UserRegistrationForm(forms.ModelForm):
-    error_css_class = 'has-text-info'
-    required_css_class = ''
 
     phone_number = forms.CharField(label='Phone number', validators=[phone_number_length_validator],
                                    widget=forms.TextInput(
@@ -85,18 +83,13 @@ class UserRegistrationForm(forms.ModelForm):
         model = User
 
         # This will be displayed in the form
-        fields = ['phone_number', 'password', 'password2', 'first_name', 'last_name']
+        fields = ['phone_number', 'password', 'password2', ]
 
         widgets = {
             'phone_number': forms.NumberInput(
                 attrs={'class': '', 'placeholder': 'ex. 9876543210'}
             ),
-            'first_name': forms.TextInput(
-                attrs={'class': 'input', 'placeholder': 'ex. John'}
-            ),
-            'last_name': forms.TextInput(
-                attrs={'class': 'input', 'placeholder': 'ex. Snow'}
-            )
+
         }
 
     def clean_password2(self):
@@ -167,6 +160,18 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         exclude = ['user']
+
+        widgets = {
+            'first_name': forms.TextInput(
+                attrs={'class': 'input', 'placeholder': 'ex. John'}
+            ),
+            'last_name': forms.TextInput(
+                attrs={'class': 'input', 'placeholder': 'ex. Snow'}
+            ),
+            'address': forms.Textarea(
+                attrs={'class': 'textarea', 'placeholder': 'your village', 'rows': 5, 'cols': 1}
+            )
+        }
 
 
 class ForgetPasswordForm(forms.Form):

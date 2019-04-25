@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import UpdateView
 
@@ -36,7 +37,7 @@ class UserRegistrationFormView(View):
         if request.user.is_authenticated:
             display_logged_in_warning(request)
 
-            return redirect('/')
+            return redirect(reverse_lazy('index:index'))
         else:
             form = self.form_class(None)
             return render(request, self.template_name, {'form': form, 'current_path': current_path})
@@ -65,7 +66,7 @@ class UserRegistrationFormView(View):
             if user is not None:
                 login(request, user)
                 if user.is_active:
-                    return redirect('index:index')
+                    return redirect('user:profile', user.pk)
 
         return render(request, self.template_name, {'form': form})
 
@@ -94,8 +95,8 @@ class UserLoginFormView(View):
             login(request, user)
 
             # displays the name of person logged in.
-            if user.first_name:
-                messages.info(request, 'Welcome back, ' + str(user.full_name()))
+            if user.userprofile.first_name:
+                messages.info(request, 'Welcome back, ' + str(user.userprofile.full_name()))
 
             else:
                 messages.info(request, 'Welcome back, User')
@@ -124,6 +125,7 @@ class ProfileFormView(UpdateView):
     model = UserProfile
     form_class = ProfileForm
     template_name = 'user/profile_form.html'
+    success_url = reverse_lazy('index:index')
 
 
 class ForgetPasswordFormView(View):

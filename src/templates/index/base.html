@@ -80,7 +80,7 @@
                 </a>
             {% endif %}
             <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link is-arrowless" href="#">
+                <a class="navbar-link is-arrowless" href="{% url 'user:profile' user.pk %}">
                     <i class="fas fa-user is-small" style="margin-right:5px;"> </i>
                     <span class="is-capitalized">
                             {% if request.user.userprofile.full_name %}

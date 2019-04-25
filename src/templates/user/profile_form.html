@@ -4,5 +4,28 @@
 
 
 {% block body %}
-    {% include 'index/form_template.html' %}
-{% endblock %}
+    <div class="container">
+        <div class="level-item">
+            <div class="column is-two-fifths is-mobile-full">
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="notification is-light">
+
+                        <fieldset>
+                            <legend class='has-text-centered title'>My Profile</legend>
+
+                            <hr class="has-background-grey-lighter">
+                            {% include 'index/form_template.html' %}
+                        </fieldset>
+
+                        <div class="form-group">
+                            <button class="button is-primary" type="submit">Submit</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

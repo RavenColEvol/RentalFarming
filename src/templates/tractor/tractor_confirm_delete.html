@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'index/base.html' %}
 
-</body>
-</html>
+{% block title %}Delete Tractor confirm{% endblock title %}
+
+
+{% block body %}
+    <div class="container">
+        <br><br>
+        <div class="message is-danger">
+            <form method="POST">
+                {% csrf_token %}
+                <h1 class=" message-header">Delete tractor {{ tractor }}?</h1>
+                <div class="message-body">
+                    <p>Are you sure that you want to delete your tractor {{ tractor }}?</p>
+                    <p>This step is irreversible. Think wisely.</p>
+                </div>
+
+
+                <br><br>
+                <div class="columns">
+                    <div class="column"></div>
+                    <div class="column has-text-right" style="margin-right:15px;">
+                        <button type="submit" class="button is-danger is-outlined">Confirm</button>
+                        <a href="{% url 'tractor:my_tractor' %}" class="button is-info">Go back</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}
